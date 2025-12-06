@@ -1,7 +1,9 @@
 import express, { Request, Response } from "express";
 import { config } from './config';
 import { initDB } from "./config/db";
-import { routes } from "./modules/Vehicles/vehicles.routes";
+import { vechileRoutes} from "./modules/Vehicles/vehicles.routes";
+import { authRouters } from "./modules/Authentication/auth.routes";
+import { userRoutes } from "./modules/Users/users.routes";
 const app = express();
 const port=config.port ||8000
 
@@ -13,7 +15,12 @@ initDB()
 
 
 // vehicles routes 
-app.use('/api/v1',routes)
+app.use('/api/v1',vechileRoutes)
+// auth routes 
+app.use('/api/v1/auth',authRouters)
+
+// users Routes 
+app.use('/api/v1/users',userRoutes)
 
 
 

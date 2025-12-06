@@ -1,0 +1,26 @@
+import { Request,Response } from "express";
+import { authService } from "./auth.service";
+
+const authPostController=async(req:Request,res:Response)=>{
+
+    try {
+    const result=await authService.authPostService(req.body)
+    res.status(201).json({
+        success:true,
+        message:"User registered successfully",
+        data:result?.rows[0]
+    })
+        
+    } catch (error:any) {
+        res.status(404).json({
+        success:false,
+        message:error.message,
+
+    })
+    }
+
+}
+
+export const authController={
+authPostController
+}

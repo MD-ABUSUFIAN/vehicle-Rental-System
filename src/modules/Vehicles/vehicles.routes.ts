@@ -10,4 +10,4 @@ route.put('/vehicles/:vehicleId',vehiclesController.updateVehicles)
 route.delete('/vehicles/:vehicleId',vehiclesController.deleteVechile)
 
 
-export const routes=route;
+export const vechileRoutes=route;
