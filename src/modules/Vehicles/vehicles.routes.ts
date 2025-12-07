@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { vehiclesController } from "./vehicles.controller";
+import { auth } from "../../middleware/auth";
 
 const route=Router();
 
-route.post('/vehicles',vehiclesController.createVehicles)
+route.post('/vehicles',auth("admin"),vehiclesController.createVehicles)
 route.get('/vehicles',vehiclesController.getAllVechicle)
-route.get('/vehicles/:vehicleId',vehiclesController.getSingleVechicle)
-route.put('/vehicles/:vehicleId',vehiclesController.updateVehicles)
-route.delete('/vehicles/:vehicleId',vehiclesController.deleteVechile)
+route.get('/vehicles/:vehicleId',auth("admin"),vehiclesController.getSingleVechicle)
+route.put('/vehicles/:vehicleId',auth("admin"),vehiclesController.updateVehicles)
+route.delete('/vehicles/:vehicleId',auth("admin"),vehiclesController.deleteVechile)
 
 
 export const vechileRoutes=route;

@@ -5,23 +5,33 @@ import { config } from '../config';
 export const auth=(...role:string[])=>{
     return async(req:Request,res:Response,next:NextFunction)=>{
         try {
-            const token=req.headers.authorization;
-        if(!token){
-            return res.status(500).json({
-                success:false,message:'Unauthorized'
+            const token=req?.headers?.authorization;
+            // console.log(token)
+            if(!token){
+                return res.status(401).json({
+                success:false,message:'No Token Unauthorized'
+            })
+            }
+
+            const bearerToken = token.split(' ')[1]
+
+        if(!bearerToken){
+            return res.status(403).json({
+                success:false,
+                message:'Unauthorized'
             })
         }
-        const decodedToken=jwt.verify(token as string,config.secret as string) as JwtPayload
+        const decodedToken=jwt.verify(bearerToken as string,config.secret as string) as JwtPayload
         req.user=decodedToken;
-        if(role.length && !role.includes(decodedToken.role )){
-            return res.status(500).json({
+        if(role.length && !role.includes(decodedToken.role)){
+            return res.status(403).json({
                 success:false,
-                message:"Your are not Authorized for this routes!!!!"
+                message:"Unauthorized!!!!"
             })
         }
         next()
         } catch (error:any) {
-            res.status(500).json({
+            res.status(401).json({
                 success:false,
                 message:error.message
             })
