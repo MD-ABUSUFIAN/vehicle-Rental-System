@@ -1,10 +1,9 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { config } from './config';
 import { initDB } from "./config/db";
 import { vechileRoutes} from "./modules/Vehicles/vehicles.routes";
 import { authRouters } from "./modules/Authentication/auth.routes";
 import { userRoutes } from "./modules/Users/users.routes";
-import { bookingController } from "./modules/Bookings/bookings.controller";
 import { bookingRoutes } from "./modules/Bookings/bookings.routes";
 const app = express();
 const port=config.port ||8000
@@ -28,6 +27,15 @@ app.use('/api/v1/users',userRoutes)
 app.use('/api/v1/bookings',bookingRoutes)
 
 
+// 404 route 
+app.use((req:Request,res:Response,next:NextFunction)=>{
+  res.status(404).json({
+    success:"false",
+    message:"Route Not Found",
+    path:req.path
+  }
+)
+})
 
 
 
