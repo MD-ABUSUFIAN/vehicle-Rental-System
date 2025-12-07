@@ -4,6 +4,8 @@ import { initDB } from "./config/db";
 import { vechileRoutes} from "./modules/Vehicles/vehicles.routes";
 import { authRouters } from "./modules/Authentication/auth.routes";
 import { userRoutes } from "./modules/Users/users.routes";
+import { bookingController } from "./modules/Bookings/bookings.controller";
+import { bookingRoutes } from "./modules/Bookings/bookings.routes";
 const app = express();
 const port=config.port ||8000
 
@@ -21,6 +23,9 @@ app.use('/api/v1/auth',authRouters)
 
 // users Routes 
 app.use('/api/v1/users',userRoutes)
+
+// Booking Route 
+app.use('/api/v1/bookings',bookingRoutes)
 
 
 

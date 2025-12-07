@@ -27,16 +27,15 @@ export const initDB=()=>{
 
         ) `)
 
-        // pool.query(`
-        //     CREATE TABLE IF NOT EXISTS booking(
-        //     id SERIAL PRIMARY KEY,
-        //     customer_id INT REFERENCES users(id) ON DELETE CASCADE,
-        //     vehicle_id INT REFERENCES vehicles(id) ON DELETE CASCADE,
-        //     rent_start_date TIMESTAMP NOT NULL ,
-        //     rent_end_date  TIMESTAMP NOT NULL CHECK(rent_end_date>rent_start_date),
-        //     total_price NUMERIC(10,2) NOT NULL CHECK(total_price>0),
-        //     status VARCHAR(50) CHECK(status IN('active','cancelled','returned')),
-
-        //     )
-        //     `)
+        pool.query(`
+            CREATE TABLE IF NOT EXISTS booking(
+            id SERIAL PRIMARY KEY,
+            customer_id INT REFERENCES users(id) ON DELETE CASCADE,
+            vehicle_id INT REFERENCES vehicles(id) ON DELETE CASCADE,
+            rent_start_date TIMESTAMP NOT NULL ,
+            rent_end_date  TIMESTAMP NOT NULL CHECK(rent_end_date>rent_start_date),
+            total_price NUMERIC(10,2) NOT NULL CHECK(total_price>0),
+            status VARCHAR(50) CHECK(status IN('active','cancelled','returned'))
+            )
+            `)
 }
